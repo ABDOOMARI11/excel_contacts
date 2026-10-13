@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f8f6"><title>Extracteur de contacts</title>
+<link rel="stylesheet" href="/src.css">
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+<body>
+<main class="shell">
+<header class="topbar"><div class="brand">✳</div><div><p class="eyebrow">OUTIL GRATUIT · PRIVÉ</p><h1>Extracteur de contacts</h1><p class="sub">Transformez vos fichiers en contacts prêts à importer.</p></div></header>
+<section class="panel">
+<div class="mode-toggle-row">
+  <div class="mode-copy"><strong>Mode convertisseur VCF</strong><span>Importer un fichier .vcf et le convertir en CSV, Excel, PDF ou Word.</span></div>
+  <label class="switch" aria-label="Activer le mode convertisseur VCF"><input id="vcfModeToggle" type="checkbox"><span class="switch-track"></span></label>
+</div>
+<div id="modeHint" class="mode-hint" role="status">Mode extraction : importez des documents ou des listes pour extraire les contacts.</div>
+<div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Choisir ou déposer des fichiers">
+<div class="upload-icon">↑</div><h2 id="dropTitle">Déposez vos fichiers ici</h2><p id="dropSubtitle">ou choisissez-les depuis votre appareil</p><button id="chooseBtn" class="btn light" type="button">Choisir des fichiers</button><p id="fileTypes" class="types">VCF · CSV · XLSX · XLS · PDF · DOCX</p>
+<input id="fileInput" type="file" multiple accept=".vcf,.csv,.xlsx,.xls,.pdf,.docx" hidden>
+</div>
+<div id="fileList" class="file-list"></div>
+<div class="upload-footer"><span class="muted">▣ Vos fichiers sont traités dans votre navigateur.</span><button id="extractBtn" class="btn primary" disabled>Extraire les contacts →</button></div>
+<div id="status" class="status" role="status"></div>
+</section>
+<section id="results" class="results" hidden>
+<div class="results-heading"><div><p class="eyebrow">VOS RÉSULTATS</p><h2>Contacts trouvés <span id="count" class="count">0</span></h2><p id="summary" class="sub">Vérifiez les informations avant l'export.</p></div><button id="clearBtn" class="btn quiet">Tout effacer</button></div>
+<div class="toolbar"><label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Rechercher un nom ou un numéro…" aria-label="Rechercher un contact"></label><div class="actions"><button id="dedupeBtn" class="btn light">Détecter les doublons</button><button id="deleteSelectedBtn" class="btn light danger" disabled>Supprimer la sélection</button></div></div>
+<div id="duplicateNotice" class="notice" hidden></div>
+<div class="table-wrap"><table><thead><tr><th class="check"><input id="selectAll" type="checkbox" aria-label="Sélectionner tous les contacts"></th><th>Nom</th><th>Numéro de téléphone</th><th>Actions</th></tr></thead><tbody id="contactRows"></tbody></table><div id="emptyState" class="empty" hidden>Aucun contact à afficher.</div></div>
+<div class="export"><div><h3>Prêt à exporter ?</h3><p>Téléchargez les contacts ou ouvrez WhatsApp pour un contact.</p></div><div class="export-actions"><button id="vcfBtn" class="btn primary">↓ Télécharger en VCF</button><button id="xlsxBtn" class="btn light">↓ Télécharger en XLSX</button><button id="pdfBtn" class="btn light">↓ Télécharger en PDF</button><button id="docxBtn" class="btn light">↓ Télécharger en DOCX</button><button id="csvBtn" class="btn light">↓ Télécharger en CSV</button></div></div>
+<p class="footnote">Vérifiez les noms et numéros avant l'importation. WhatsApp ne reçoit aucun message automatiquement.</p>
+</section><footer>Contact Extractor · Simple, rapide et privé</footer>
+</main><script type="module" src="/src.js"></script>
+</body></html>
